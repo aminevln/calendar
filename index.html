@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Handjet&family=Montserrat:wght@100&family=Nunito:wght@300;400&family=Open+Sans&family=Roboto:wght@100&display=swap');
+        *{
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+            background: #e2e2e2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #container{
+            margin-top: 40px;
+            width: 60%;
+            height: 80vh;
+            border-radius: 3%;
+            background: #eeeeee;
+            box-shadow: 5px 5px 5px rgb(214, 213, 213);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        #days{
+            margin-top: 10px;
+            width: 95%;
+            display: flex;
+        }
+        .days{
+            width: 15.2857%;
+        }
+        #squares{
+            width: 95%;
+            height: 90%;
+            border: .1px solid rgb(206, 206, 206);
+            margin-top: 10px;
+            border-bottom-left-radius: 3%;
+            border-bottom-right-radius: 3%;
+        }
+        .dow{
+            width: 100%;
+            height: 20%;
+            display: flex;
+        }
+        .wow{
+            height: 100%;
+            width:14.2857% ;
+            padding: 5px;
+            border: 1px solid rgb(228, 228, 228);
+            transition: all .3s ease-in-out;
+            background: #eeeeee;
+        }
+        .wow:hover{
+            scale: 1.05;
+            font-weight: 950;
+            border: 2px solid rgb(221, 221, 221);
+        }
+        .notes{
+            width: 100%;
+            resize: none;
+            height: 80%;
+            background-color: rgb(240, 238, 238);
+            color: black;
+            font-weight: 800;
+            font-size: small;
+        }
+        textarea:focus {
+            outline: none; 
+        }
+        @media (max-width: 1024px) {
+            #container{
+                margin-top: 40px;
+                width: 80%;
+                height: 80vh;
+                border-radius: 3%;
+                background: #eeeeee;
+                box-shadow: 5px 5px 5px rgb(214, 213, 213);
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 100%; margin-left: 50px; margin-top: 30px;"><h1>december 2023</h1></div>
+    <section id="container">
+        <div id="days"></div>
+        <div id="squares"></div>
+    </section>
+    <script>
+        
+        let x = 1
+        let a = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        let flag = false
+        for(let i = 0; i<a.length; i++){
+            let b = document.createElement('div')
+            b.classList.add('days')
+            b.textContent = a[i]
+            $("#days").append(b)
+        }
+        for(let i=0; i<5; i++){
+            let b = document.createElement('div')
+            b.classList.add('dow')
+            $("#squares").append(b)
+            for(let j=0; j<a.length; j++){
+                if(j==4) flag = true
+                let c = document.createElement('div')
+                c.classList.add('wow')
+                b.append(c)
+                if(flag){
+                    if(x==31) flag = false
+                    c.textContent = x
+                    let d = document.createElement('textarea')
+                    d.id = x.toString()
+                    d.classList.add('notes')
+                    c.appendChild(d)
+                    x++
+                }
+            }
+        }
+        update()
+        function update(){
+            let a = document.getElementsByClassName('notes')
+            for(let i=0; i<a.length; i++){
+                a[i].value = localStorage.getItem(a[i].id)
+            }
+        }
+        setInterval(salva, 2500)
+        function salva(){
+            localStorage.clear()
+            let a = document.getElementsByClassName('notes')
+            for (let index = 0; index < a.length; index++) {
+                localStorage.setItem(a[index].id, a[index].value)
+            }
+        }
+        
+    </script>
+</body>
+</html>
