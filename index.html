@@ -87,8 +87,8 @@
         @media (max-width: 1024px) {
             #container{
                 margin-top: 40px;
-                width: 80%;
-                height: 80vh;
+                width: 90%;
+                height: 40vh;
                 border-radius: 3%;
                 background: #eeeeee;
                 box-shadow: 5px 5px 5px rgb(214, 213, 213);
@@ -96,6 +96,26 @@
                 align-items: center;
                 flex-direction: column;
             }
+            .wow{
+               height: 100%;
+               width:14.2857% ;
+               padding: 5px;
+               border: 1px solid rgb(228, 228, 228);
+               transition: all .3s ease-in-out;
+               background: #eeeeee;
+               font-size: x-small;
+            }
+            .notes{
+            width: 100%;
+            resize: none;
+            height: 80%;
+            background-color: rgb(240, 238, 238);
+            color: black;
+            font-weight: 800;
+            font-size: x-small;
+            overflow: hidden;
+        }
+
         }
     </style>
 </head>
@@ -108,7 +128,7 @@
     <script>
         
         let x = 1
-        let a = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        let a = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
         let flag = false
         for(let i = 0; i<a.length; i++){
             let b = document.createElement('div')
@@ -116,6 +136,7 @@
             b.textContent = a[i]
             $("#days").append(b)
         }
+        
         for(let i=0; i<5; i++){
             let b = document.createElement('div')
             b.classList.add('dow')
